@@ -6,7 +6,7 @@
     </php>
     <testsuites>
         <testsuite name="GitBundle for the Symfony Framework">
-            <directory>./Tests/Command/</directory>
+            <directory>./Tests</directory>
         </testsuite>
     </testsuites>
 

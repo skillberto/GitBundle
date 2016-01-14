@@ -10,10 +10,19 @@ namespace Skillberto\GitBundle\Service;
 
 use Gitter\Client;
 use Skillberto\GitBundle\Exception\InvalidTagException;
+use Skillberto\GitBundle\Validation\ValidatorInterface;
 
 class GitService implements GitServiceInterface
 {
-    protected $path;
+    protected
+        $path,
+        $validator;
+
+    public function __construct($path = null, ValidatorInterface $validator)
+    {
+        $this->path = $path;
+        $this->validator = $validator;
+    }
 
     /**
      * {inheritdoc}
@@ -22,7 +31,7 @@ class GitService implements GitServiceInterface
     {
         $tag = $this->getLastTag();
 
-        if (!$this->validate($tag)) {
+        if (! $this->validator->isValid($tag)) {
             throw new InvalidTagException(sprintf("Can't find correct git tag for current version, found: ", $tag));
         }
 
@@ -30,17 +39,7 @@ class GitService implements GitServiceInterface
     }
 
     /**
-     * {inheritdoc}
-     */
-    public function setPath($path = null)
-    {
-        $this->path = $path;
-
-        return $this;
-    }
-
-    /**
-     * Get tag for version
+     * Get last tag
      *
      * @return string
      */
@@ -49,6 +48,11 @@ class GitService implements GitServiceInterface
         return $this->getTags()[0];
     }
 
+    /**
+     * Get tags
+     *
+     * @return array
+     */
     protected function getTags()
     {
         $client = new Client();
@@ -56,45 +60,5 @@ class GitService implements GitServiceInterface
         $repository = $client->getRepository($this->path);
 
         return $repository->getTags();
-    }
-
-    /**
-     * Validate data for version controlling
-     *
-     * @param  string $data
-     * @return bool
-     */
-    protected function validate($data)
-    {
-        if (! is_string($data) || empty($data)) {
-            return false;
-        }
-
-        $tag = $this->stripTag($data);
-
-        if ($tag === null) {
-            return false;
-        }
-
-        if (count(explode('.', $data)) != count(explode('.', $tag))) {
-            return false;
-        }
-
-        return true;
-    }
-
-    /**
-     * Strip tag from string
-     *
-     * @param  string $data
-     * @return string|null
-     */
-    protected function stripTag($data)
-    {
-        $pattern = '/(^v?)(\d+\.\d+(\.\d+){0,2})/';
-
-        preg_match($pattern, $data, $output);
-
-        return isset($output[2]) ? $output[2] : null;
     }
 } 
