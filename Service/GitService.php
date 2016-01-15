@@ -42,7 +42,7 @@ class GitService implements GitServiceInterface
      */
     protected function getLastTag()
     {
-        return $this->getTags()[0];
+        return array_pop($this->getTags());
     }
 
     /**
