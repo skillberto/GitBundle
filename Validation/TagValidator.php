@@ -19,7 +19,7 @@ class TagValidator implements ValidatorInterface
                 new Assert\NotNull(),
                 new Assert\NotBlank(),
                 new Assert\Type(array('type' => 'string')),
-                new Assert\Regex(array('pattern' => '/(^v?)((\d+)(\.\d+)(\.\d+)?)$/'))
+                new Assert\Regex(array('pattern' => '/(^v?)\d+\.\d+(\.\d+)?$/'))
             )
         ));
 
