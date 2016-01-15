@@ -3,7 +3,6 @@
 namespace Skillberto\GitBundle\Tests\Service;
 
 use Skillberto\GitBundle\Service\GitService;
-use Symfony\Component\Process\Process;
 
 class GitServiceTest extends \PHPUnit_Framework_TestCase
 {

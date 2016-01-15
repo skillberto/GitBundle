@@ -7,7 +7,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 class TagValidator implements ValidatorInterface
 {
-    /*
+    /**
      * {inheritdoc}
      */
     public function isValid($data)

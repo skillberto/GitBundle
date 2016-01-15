@@ -29,6 +29,7 @@ class TagValidatorTest extends \PHPUnit_Framework_TestCase
     public function testInvalidData()
     {
         $this->assertFalse($this->validator->isValid(''));
+        $this->assertFalse($this->validator->isValid(1));
         $this->assertFalse($this->validator->isValid('1.'));
         $this->assertFalse($this->validator->isValid('1,2'));
         $this->assertFalse($this->validator->isValid('1.c'));
