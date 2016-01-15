@@ -27,7 +27,7 @@ class GitServiceTest extends \PHPUnit_Framework_TestCase
 
     protected function recursiveCommit(Repository $repository, $count)
     {
-        if ($count>10) {
+        if ($count > 10) {
             return;
         }
 
@@ -35,8 +35,13 @@ class GitServiceTest extends \PHPUnit_Framework_TestCase
 
         $repository
             ->addAll()
-            ->commit("randomFile")
-            ->createTag($count);
+            ->commit("randomFile");
+
+        if ($count < 5) {
+            $repository->createTag($count.".".$count.".".$count);
+        } else {
+            $repository->createTag($count.".".$count);
+        }
 
         $count++;
 

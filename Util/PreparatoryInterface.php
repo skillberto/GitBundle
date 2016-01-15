@@ -9,4 +9,10 @@ interface PreparatoryInterface
      * @return string
      */
     public function prepare($data);
+
+    /**
+     * @param  string $data
+     * @return string
+     */
+    public function format($data);
 }

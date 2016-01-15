@@ -26,23 +26,20 @@ class GitService implements GitServiceInterface
      */
     public function getVersion()
     {
-        $tag = $this->getLastTag();
+        $prepared  = array();
+        $formatted = array();
 
-        if (! $this->validator->isValid($tag)) {
-            throw new InvalidTagException(sprintf("Can't find correct git tag for current version, found: ", $tag));
+        foreach ($this->getTags() as $tag) {
+
+            if (! $this->validator->isValid($tag)) {
+                throw new InvalidTagException(sprintf("Can't find correct git tag for current version, found: ", $tag));
+            }
+
+            $prepared[] = $tag = $this->preparatory->prepare($tag);
+            $formatted[$tag] = $this->preparatory->format($tag);
         }
 
-        return $this->preparatory->prepare($tag);
-    }
-
-    /**
-     * Get last tag
-     *
-     * @return string
-     */
-    protected function getLastTag()
-    {
-        return array_pop($this->getTags());
+        return $formatted[max($prepared)];
     }
 
     /**
