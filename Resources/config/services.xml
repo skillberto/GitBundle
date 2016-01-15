@@ -4,16 +4,21 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
-    <parameters>
-        <parameter key="skillberto.git.tag.service.class" >Skillberto\GitBundle\Service\GitService</parameter>
-    </parameters>
-
     <services>
-        <service id="skillberto.git.tag.service" class="%skillberto.git.tag.service.class%" />
+        <service id="skillberto.git_tag.validator" class="Skillberto\GitBundle\Validation\TagValidator" />
+
+        <service id="skillberto.git_tag.preparatory" class="Skillberto\GitBundle\Validation\PreparatoryInterface" />
+
+        <service id="skillberto.git_tag.service" class="Skillberto\GitBundle\Service\GitService" >
+            <argument>%skillberto.git_tag.path%</argument>
+            <argument type="service" id="skillberto.git_tag.validator" />
+            <argument type="service" id="skillberto.git_tag.preparatory" />
+        </service>
+
         <service id="skillberto.twig.extension" class="Skillberto\GitBundle\Twig\Extension\GitExtension">
             <tag name="twig.extension" />
             <call method="setGitService" >
-                <argument type="service" id="skillberto.git.tag.service" />
+                <argument type="service" id="skillberto.git_tag.service" />
             </call>
         </service>
     </services>

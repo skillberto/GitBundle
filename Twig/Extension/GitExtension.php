@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: pentalab_2
- * Date: 2015.01.06.
- * Time: 20:44
- */
 
 namespace Skillberto\GitBundle\Twig\Extension;
 

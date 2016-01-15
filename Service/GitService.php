@@ -1,27 +1,24 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: heiszler_n
- * Date: 1/6/2015
- * Time: 12:47 PM
- */
 
 namespace Skillberto\GitBundle\Service;
 
 use Gitter\Client;
 use Skillberto\GitBundle\Exception\InvalidTagException;
+use Skillberto\GitBundle\Util\PreparatoryInterface;
 use Skillberto\GitBundle\Validation\ValidatorInterface;
 
 class GitService implements GitServiceInterface
 {
     protected
         $path,
-        $validator;
+        $validator,
+        $preparatory;
 
-    public function __construct($path = null, ValidatorInterface $validator)
+    public function __construct($path = null, ValidatorInterface $validator, PreparatoryInterface $preparatory)
     {
         $this->path = $path;
         $this->validator = $validator;
+        $this->preparatory = $preparatory;
     }
 
     /**
@@ -35,7 +32,7 @@ class GitService implements GitServiceInterface
             throw new InvalidTagException(sprintf("Can't find correct git tag for current version, found: ", $tag));
         }
 
-        return $tag;
+        return $this->preparatory->prepare($tag);
     }
 
     /**

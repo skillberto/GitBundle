@@ -1,54 +1,29 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: heiszler_n
- * Date: 2016.01.14.
- * Time: 16:49
- */
 
 namespace Skillberto\GitBundle\Validation;
 
+use Symfony\Component\Validator\Validation;
+use Symfony\Component\Validator\Constraints as Assert;
 
 class TagValidator implements ValidatorInterface
 {
-
-    /**
-     * Validate data for version controlling
-     *
-     * @param  string $data
-     * @return bool
+    /*
+     * {inheritdoc}
      */
     public function isValid($data)
     {
-        if (! is_string($data) || empty($data)) {
-            return false;
-        }
+        $validator = Validation::createValidator();
 
-        $tag = $this->stripTag($data);
+        $constraint = new Assert\Collection(array(
+            new Assert\NotNull(),
+            new Assert\Type(array('type' => 'string')),
+            new Assert\Regex(array('pattern' => '(^v?)(\d+\.\d+(\.\d+){0,2}'))
+        ));
 
-        if ($tag === null) {
-            return false;
-        }
-
-        if (count(explode('.', $data)) != count(explode('.', $tag))) {
+        if (count($validator->validate($data, $constraint)) > 0) {
             return false;
         }
 
         return true;
-    }
-
-    /**
-     * Strip tag from string
-     *
-     * @param  string $data
-     * @return string|null
-     */
-    protected function stripTag($data)
-    {
-        $pattern = '/(^v?)(\d+\.\d+(\.\d+){0,2})/';
-
-        preg_match($pattern, $data, $output);
-
-        return isset($output[2]) ? $output[2] : null;
     }
 }

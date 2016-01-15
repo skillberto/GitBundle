@@ -1,24 +1,22 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: heiszler_n
- * Date: 1/6/2015
- * Time: 12:52 PM
- */
 
 namespace Skillberto\GitBundle\Service;
 
 use Skillberto\GitBundle\Exception\InvalidTagException;
+use Skillberto\GitBundle\Util\PreparatoryInterface;
 use Skillberto\GitBundle\Validation\ValidatorInterface;
 
 
 interface GitServiceInterface
 {
     /**
-     * @param mixed $path
-     * @param ValidatorInterface $validator
+     * Construct GitService
+     *
+     * @param string                $path
+     * @param ValidatorInterface    $validator
+     * @param PreparatoryInterface  $preparatory
      */
-    public function __construct($path = null, ValidatorInterface $validator);
+    public function __construct($path = null, ValidatorInterface $validator, PreparatoryInterface $preparatory);
 
     /**
      * Get actual Git version if available

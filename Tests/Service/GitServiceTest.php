@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: heiszler_n
- * Date: 1/6/2015
- * Time: 3:58 PM
- */
 
 namespace Skillberto\GitBundle\Tests\Service;
 
