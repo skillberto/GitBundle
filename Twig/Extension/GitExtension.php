@@ -12,7 +12,7 @@ class GitExtension extends \Twig_Extension
     public function getFunctions()
     {
         return array(
-            new \Twig_SimpleFunction("git_version", array($this->gitServiceInterface, 'getVersion'))
+            new \Twig_Function("git_version", array($this->gitServiceInterface, 'getVersion'))
         );
     }
 

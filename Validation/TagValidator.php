@@ -15,12 +15,15 @@ class TagValidator implements ValidatorInterface
         $validator = Validation::createValidator();
 
         $constraint = new Assert\Collection(array(
-            new Assert\NotNull(),
-            new Assert\Type(array('type' => 'string')),
-            new Assert\Regex(array('pattern' => '(^v?)(\d+\.\d+(\.\d+){0,2}'))
+            "tag" => array(
+                new Assert\NotNull(),
+                new Assert\NotBlank(),
+                new Assert\Type(array('type' => 'string')),
+                new Assert\Regex(array('pattern' => '/(^v?)((\d+)(\.\d+)(\.\d+)?)$/'))
+            )
         ));
 
-        if (count($validator->validate($data, $constraint)) > 0) {
+        if (count($validator->validate(array("tag" => $data), $constraint)) > 0) {
             return false;
         }
 

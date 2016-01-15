@@ -9,7 +9,7 @@ class TagPreparatory implements PreparatoryInterface
      */
     public function prepare($data)
     {
-        $pattern = '/(^v?)(\d+\.\d+(\.\d+){0,2})/';
+        $pattern = '/(^v?)((\d+)(\.\d+)(\.\d+)?)$/';
 
         preg_match($pattern, $data, $output);
 
