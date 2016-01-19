@@ -6,6 +6,6 @@ class GitExtensionTest
 {
     public function testGitVersion()
     {
-        
+
     }
 }

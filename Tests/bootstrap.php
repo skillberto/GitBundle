@@ -20,6 +20,13 @@ class InitRepo
 
         $this->fs = new \Symfony\Component\Filesystem\Filesystem();
         $this->client = new \Gitter\Client();
+
+
+        if ($this->fs->exists($this->path)) {
+            $this->repository = $this->client->getRepository($this->path);
+        } else {
+            $this->init();
+        }
     }
 
     public function init()
@@ -37,10 +44,6 @@ class InitRepo
 
     public function commitWithTag($message = null, $tag)
     {
-        if ($this->repository === null) {
-            $this->repository = $this->client->getRepository($this->path);
-        }
-
         $this->recursiveCommit($message, 1, $tag);
 
         return $this;
