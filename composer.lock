@@ -4,22 +4,16 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "3ed7b193bcef33a2fca653fd80fc9454",
-    "content-hash": "9956ca17b667d1778d6c5a2a85442e5c",
+    "hash": "e0a189162ca2720ec45ab2f9b8f1ed0e",
+    "content-hash": "e45e2f9a01540fe4466ce3fd3ac5bfe4",
     "packages": [
         {
             "name": "klaussilveira/gitter",
             "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/klaussilveira/gitter.git",
-                "reference": "d2539a876d9ca74be0f626b1d28bf1d1245d3ceb"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/klaussilveira/gitter/zipball/d2539a876d9ca74be0f626b1d28bf1d1245d3ceb",
-                "reference": "d2539a876d9ca74be0f626b1d28bf1d1245d3ceb",
-                "shasum": ""
+                "url": "https://github.com/skillberto/gitter",
+                "reference": "d17d082acb988c2772f44726f166158d390512fc"
             },
             "require": {
                 "php": ">=5.3.0",
@@ -36,7 +30,6 @@
                     "Gitter": "lib/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "BSD-2-Clause"
             ],
@@ -54,7 +47,7 @@
                 "git",
                 "vcs"
             ],
-            "time": "2015-12-08 12:24:54"
+            "time": "2016-01-19 10:11:44"
         },
         {
             "name": "symfony/polyfill-mbstring",
@@ -1724,12 +1717,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/dependency-injection.git",
-                "reference": "c54e5fdd84e0081ad8c58ef0800663748de5df39"
+                "reference": "74d147b2c64c58a7017c17a7c0be5d94afe62532"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/dependency-injection/zipball/c54e5fdd84e0081ad8c58ef0800663748de5df39",
-                "reference": "c54e5fdd84e0081ad8c58ef0800663748de5df39",
+                "url": "https://api.github.com/repos/symfony/dependency-injection/zipball/74d147b2c64c58a7017c17a7c0be5d94afe62532",
+                "reference": "74d147b2c64c58a7017c17a7c0be5d94afe62532",
                 "shasum": ""
             },
             "require": {
@@ -1775,7 +1768,7 @@
             ],
             "description": "Symfony DependencyInjection Component",
             "homepage": "https://symfony.com",
-            "time": "2016-01-13 16:23:43"
+            "time": "2016-01-16 14:18:33"
         },
         {
             "name": "symfony/event-dispatcher",

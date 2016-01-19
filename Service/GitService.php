@@ -4,7 +4,7 @@ namespace Skillberto\GitBundle\Service;
 
 use Gitter\Client;
 use Skillberto\GitBundle\Exception\InvalidTagException;
-use Skillberto\GitBundle\Util\PreparatoryInterface;
+use Skillberto\GitBundle\Util\FormatterInterface;
 use Skillberto\GitBundle\Validation\ValidatorInterface;
 
 class GitService implements GitServiceInterface
@@ -12,13 +12,13 @@ class GitService implements GitServiceInterface
     protected
         $path,
         $validator,
-        $preparatory;
+        $formatter;
 
-    public function __construct($path = null, ValidatorInterface $validator, PreparatoryInterface $preparatory)
+    public function __construct($path = null, ValidatorInterface $validator, FormatterInterface $formatter)
     {
         $this->path = $path;
         $this->validator = $validator;
-        $this->preparatory = $preparatory;
+        $this->formatter = $formatter;
     }
 
     /**
@@ -26,20 +26,13 @@ class GitService implements GitServiceInterface
      */
     public function getVersion()
     {
-        $prepared  = array();
-        $formatted = array();
+        $tag = $this->getLastTag();
 
-        foreach ($this->getTags() as $tag) {
-
-            if (! $this->validator->isValid($tag)) {
-                throw new InvalidTagException(sprintf("Can't find correct git tag for current version, found: ", $tag));
-            }
-
-            $prepared[] = $tag = $this->preparatory->prepare($tag);
-            $formatted[$tag] = $this->preparatory->format($tag);
+        if (! $this->validator->isValid($tag)) {
+            throw new InvalidTagException(sprintf("Can't find correct git tag for current version, found: ", $tag));
         }
 
-        return $formatted[max($prepared)];
+        return $this->format($tag);
     }
 
     /**
@@ -47,12 +40,23 @@ class GitService implements GitServiceInterface
      *
      * @return array
      */
-    protected function getTags()
+    protected function getLastTag()
     {
         $client = new Client();
 
         $repository = $client->getRepository($this->path);
 
-        return $repository->getTags();
+        return $repository->getLastTag();
+    }
+
+    /**
+     * Format the tag
+     *
+     * @param  string $data
+     * @return string
+     */
+    protected function format($data)
+    {
+        return $this->formatter->format($data);
     }
 } 

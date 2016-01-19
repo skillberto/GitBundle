@@ -10,11 +10,17 @@
       "email": "heiszler.norbert@gmail.com"
     }
   ],
+  "repositories": [
+    {
+      "type": "git",
+      "url": "https://github.com/skillberto/gitter"
+    }
+  ],
   "require": {
     "php": ">=5.3.0",
-    "klaussilveira/gitter": "dev-master",
     "symfony/twig-bridge": "~2.3|~3.0",
-    "symfony/validator": "~2.3|~3.0"
+    "symfony/validator": "~2.3|~3.0",
+    "klaussilveira/gitter": "dev-master"
   },
   "require-dev": {
     "symfony/config": "~2.3|~3.0",

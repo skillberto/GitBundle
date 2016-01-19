@@ -2,14 +2,8 @@
 
 namespace Skillberto\GitBundle\Util;
 
-interface PreparatoryInterface
+interface FormatterInterface
 {
-    /**
-     * @param  string $data
-     * @return string
-     */
-    public function prepare($data);
-
     /**
      * @param  string $data
      * @return string

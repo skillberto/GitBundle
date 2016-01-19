@@ -7,12 +7,12 @@
     <services>
         <service id="skillberto.git_tag.validator" class="Skillberto\GitBundle\Validation\TagValidator" />
 
-        <service id="skillberto.git_tag.preparatory" class="Skillberto\GitBundle\Validation\PreparatoryInterface" />
+        <service id="skillberto.git_tag.formatter" class="Skillberto\GitBundle\Util\TagFormatter" />
 
         <service id="skillberto.git_tag.service" class="Skillberto\GitBundle\Service\GitService" >
             <argument>%skillberto.git_tag.path%</argument>
             <argument type="service" id="skillberto.git_tag.validator" />
-            <argument type="service" id="skillberto.git_tag.preparatory" />
+            <argument type="service" id="skillberto.git_tag.formatter" />
         </service>
 
         <service id="skillberto.twig.extension" class="Skillberto\GitBundle\Twig\Extension\GitExtension">

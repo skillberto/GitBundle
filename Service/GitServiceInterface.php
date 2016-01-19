@@ -3,7 +3,7 @@
 namespace Skillberto\GitBundle\Service;
 
 use Skillberto\GitBundle\Exception\InvalidTagException;
-use Skillberto\GitBundle\Util\PreparatoryInterface;
+use Skillberto\GitBundle\Util\FormatterInterface;
 use Skillberto\GitBundle\Validation\ValidatorInterface;
 
 
@@ -12,11 +12,11 @@ interface GitServiceInterface
     /**
      * Construct GitService
      *
-     * @param string                $path
-     * @param ValidatorInterface    $validator
-     * @param PreparatoryInterface  $preparatory
+     * @param string              $path
+     * @param ValidatorInterface  $validator
+     * @param FormatterInterface  $formatter
      */
-    public function __construct($path = null, ValidatorInterface $validator, PreparatoryInterface $preparatory);
+    public function __construct($path = null, ValidatorInterface $validator, FormatterInterface $formatter);
 
     /**
      * Get actual Git version if available

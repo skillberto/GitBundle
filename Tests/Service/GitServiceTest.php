@@ -11,6 +11,8 @@ class GitServiceTest extends \PHPUnit_Framework_TestCase
 {
     protected
         $path,
+        $repository,
+        $count,
         $fs;
 
     protected function setUp()
@@ -19,48 +21,72 @@ class GitServiceTest extends \PHPUnit_Framework_TestCase
 
         $this->fs = new Filesystem();
 
-        $client = new Client();
-        $repository = $client->createRepository($this->path);
+        if ($this->fs->exists($this->path)) {
+            return;
+        }
 
-        $this->recursiveCommit($repository, 1);
+        $client = new Client();
+        $this->repository = $client->createRepository($this->path);
+
+        $this->recursiveCommit(1);
     }
 
-    protected function recursiveCommit(Repository $repository, $count)
+    protected function recursiveCommit($count = null)
     {
+        if ($count === null)
+        {
+            $count = $this->count;
+        }
+
         if ($count > 10) {
             return;
         }
 
         $this->fs->dumpFile($this->path.'/'.rand(0, 500).'.txt', 'test');
 
-        $repository
+        $this->repository
             ->addAll()
             ->commit("randomFile");
 
         if ($count < 5) {
-            $repository->createTag($count.".".$count.".".$count);
+            $tag = $count.".".$count.".".$count;
         } else {
-            $repository->createTag($count.".".$count);
+            $tag = $count.".".$count;
         }
+
+        if ($count % 2) {
+            $tag = "v". $tag;
+        }
+
+        $this->repository->createTag($tag);
 
         $count++;
 
-        $this->recursiveCommit($repository, $count);
+        $this->count = $count;
+
+        $this->recursiveCommit();
     }
 
-    protected function tearDown()
+    /*protected function tearDown()
     {
         $this->fs->remove($this->path);
+    }*/
+
+    public function testGetValidVersion()
+    {
+        $service = $this->getService(true);
+
+        $this->assertEquals(10.10, $service->getVersion());
     }
 
-    public function testGetCurrentVersion()
+    /**
+     * @expectedException \Skillberto\GitBundle\Exception\InvalidTagException
+     */
+    public function testGetInvalidVersion()
     {
-        $validator = $this->getValidator(true);
-        $preparatory = $this->getPreparatory();
+        $service = $this->getService(false);
 
-        $service = new GitService($this->path, $validator, $preparatory);
-
-        $this->assertEquals(10, $service->getVersion());
+        $service->getVersion();
     }
 
     protected function getValidator($isValid)
@@ -77,14 +103,22 @@ class GitServiceTest extends \PHPUnit_Framework_TestCase
         return $mock;
     }
 
-    protected function getPreparatory()
+    protected function getFormatter()
     {
-        $mock = $this->getMockBuilder('Skillberto\GitBundle\Util\PreparatoryInterface', array('prepare'))->getMock();
+        $mock = $this->getMockBuilder('Skillberto\GitBundle\Util\FormatterInterface', array('format'))->getMock();
         $mock
             ->expects($this->any())
-            ->method('prepare')
+            ->method('format')
             ->will($this->returnArgument(0));
 
         return $mock;
+    }
+
+    protected function getService($valid = true)
+    {
+        $validator = $this->getValidator($valid);
+        $formatter = $this->getFormatter();
+
+        return new GitService($this->path, $validator, $formatter);
     }
 } 
