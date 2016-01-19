@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "e0a189162ca2720ec45ab2f9b8f1ed0e",
-    "content-hash": "e45e2f9a01540fe4466ce3fd3ac5bfe4",
+    "hash": "1cdeb330098f33ca660206623438f1a3",
+    "content-hash": "9c132972999776cdc903519d44ce7d5e",
     "packages": [
         {
             "name": "klaussilveira/gitter",
@@ -380,12 +380,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/Twig.git",
-                "reference": "f99650a03bea589d80314cd143d15828e51430f2"
+                "reference": "aad9ebadbec3e97073ec71f03667d2662b99337a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig/zipball/f99650a03bea589d80314cd143d15828e51430f2",
-                "reference": "f99650a03bea589d80314cd143d15828e51430f2",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/aad9ebadbec3e97073ec71f03667d2662b99337a",
+                "reference": "aad9ebadbec3e97073ec71f03667d2662b99337a",
                 "shasum": ""
             },
             "require": {
@@ -434,7 +434,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2016-01-11 13:11:52"
+            "time": "2016-01-19 12:30:57"
         }
     ],
     "packages-dev": [
@@ -586,6 +586,103 @@
                 "web service"
             ],
             "time": "2015-04-29 17:06:53"
+        },
+        {
+            "name": "matthiasnoback/symfony-config-test",
+            "version": "v1.4.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/matthiasnoback/SymfonyConfigTest.git",
+                "reference": "615b7c8ff5dc1737e553e518dbed641aa548572d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/matthiasnoback/SymfonyConfigTest/zipball/615b7c8ff5dc1737e553e518dbed641aa548572d",
+                "reference": "615b7c8ff5dc1737e553e518dbed641aa548572d",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3",
+                "sebastian/exporter": "1.*",
+                "symfony/config": "~2.0|~3.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": ">=3.7"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Matthias\\SymfonyConfigTest\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Matthias Noback",
+                    "email": "matthiasnoback@gmail.com",
+                    "homepage": "http://php-and-symfony.matthiasnoback.nl"
+                }
+            ],
+            "description": "Library for testing user classes related to the Symfony Config Component",
+            "homepage": "https://github.com/matthiasnoback/SymfonyConfigTest",
+            "keywords": [
+                "config",
+                "phpunit",
+                "symfony"
+            ],
+            "time": "2015-11-25 21:40:32"
+        },
+        {
+            "name": "matthiasnoback/symfony-dependency-injection-test",
+            "version": "v0.7.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/matthiasnoback/SymfonyDependencyInjectionTest.git",
+                "reference": "69503a7cea36b6a2c7146789795a5352c2ebf20c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/matthiasnoback/SymfonyDependencyInjectionTest/zipball/69503a7cea36b6a2c7146789795a5352c2ebf20c",
+                "reference": "69503a7cea36b6a2c7146789795a5352c2ebf20c",
+                "shasum": ""
+            },
+            "require": {
+                "matthiasnoback/symfony-config-test": "0.*|~1.0",
+                "sebastian/exporter": "~1",
+                "symfony/config": "^2.0.5|~3.0",
+                "symfony/dependency-injection": "^2.0.5|~3.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~3.0|~4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Matthias\\SymfonyDependencyInjectionTest\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Matthias Noback",
+                    "email": "matthiasnoback@gmail.com",
+                    "homepage": "http://php-and-symfony.matthiasnoback.nl"
+                }
+            ],
+            "description": "Library for testing user classes related to the Symfony Dependency Injection Component",
+            "homepage": "http://github.com/matthiasnoback/SymfonyDependencyInjectionTest",
+            "keywords": [
+                "Symfony2",
+                "dependency injection",
+                "phpunit"
+            ],
+            "time": "2015-11-12 15:32:36"
         },
         {
             "name": "phpdocumentor/reflection-docblock",
@@ -944,12 +1041,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "7f0787732c8472b4ade576236cf19e0e4f1c5e55"
+                "reference": "acbb9e4fdcb27a9b65426b3d09770db671296a40"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/7f0787732c8472b4ade576236cf19e0e4f1c5e55",
-                "reference": "7f0787732c8472b4ade576236cf19e0e4f1c5e55",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/acbb9e4fdcb27a9b65426b3d09770db671296a40",
+                "reference": "acbb9e4fdcb27a9b65426b3d09770db671296a40",
                 "shasum": ""
             },
             "require": {
@@ -1008,7 +1105,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2016-01-13 10:07:55"
+            "time": "2016-01-19 11:59:02"
         },
         {
             "name": "phpunit/phpunit-mock-objects",

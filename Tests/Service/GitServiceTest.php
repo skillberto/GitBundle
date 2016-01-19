@@ -4,14 +4,25 @@ namespace Skillberto\GitBundle\Tests\Service;
 
 use Skillberto\GitBundle\Service\GitService;
 use Skillberto\GitBundle\Util\TagFormatter;
+use Skillberto\GitBundle\Validation\TagValidator;
 
 class GitServiceTest extends \PHPUnit_Framework_TestCase
 {
+    protected
+        $repo = null;
+
+    protected function tearDown()
+    {
+        if ($this->repo !== null) {
+            $this->repo->removeTag("v1.3.5.2");
+        }
+    }
+
     public function testGetValidVersion()
     {
         $service = $this->getService(true);
 
-        $this->assertEquals("10.10", $service->getVersion());
+        $this->assertEquals("1.1.1", $service->getVersion());
     }
 
     /**
@@ -19,23 +30,17 @@ class GitServiceTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetInvalidVersion()
     {
-        $service = $this->getService(false);
+        $this->repo = new \InitRepo();
+        $this->repo->commitWithTag("invalidRepo", "v1.3.5.2");
+
+        $service = $this->getService();
 
         $service->getVersion();
     }
 
-    protected function getValidator($isValid)
+    protected function getValidator()
     {
-        $mock = $this
-            ->getMockBuilder('Skillberto\GitBundle\Validation\ValidatorInterface', array('isValid'))
-            ->getMock();
-
-        $mock
-            ->expects($this->any())
-            ->method('isValid')
-            ->will($this->returnValue($isValid));
-
-        return $mock;
+        return new TagValidator();
     }
 
     protected function getFormatter()
@@ -43,9 +48,9 @@ class GitServiceTest extends \PHPUnit_Framework_TestCase
         return new TagFormatter();
     }
 
-    protected function getService($valid = true)
+    protected function getService()
     {
-        $validator = $this->getValidator($valid);
+        $validator = $this->getValidator();
         $formatter = $this->getFormatter();
 
         return new GitService($_SERVER['TEST_REPO'], $validator, $formatter);

@@ -24,5 +24,11 @@ class SkillbertoGitExtension extends Extension
 
         $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.xml');
+
+        if (! array_key_exists('repo_path', $config)) {
+            $config['repo_path'] = $container->getParameter('kernel.root_dir').'/../';
+        }
+
+        $container->setParameter('skillberto.git_tag.path', $config['repo_path']);
     }
 }

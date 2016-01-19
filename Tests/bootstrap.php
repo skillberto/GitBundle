@@ -5,45 +5,89 @@ require_once __DIR__.'/../vendor/autoload.php';
 class InitRepo
 {
     protected
-        $path,
-        $repository,
-        $fs;
+        $path = null,
+        $repository = null,
+        $client = null,
+        $fs = null;
 
-    public function __construct()
+    public function __construct($path = null)
     {
-        $this->path = $_SERVER['TEST_REPO'];
-        $this->fs   = new \Symfony\Component\Filesystem\Filesystem();
+        if ($path === null) {
+            $this->path = $_SERVER['TEST_REPO'];
+        } else {
+            $this->path = $path;
+        }
+
+        $this->fs = new \Symfony\Component\Filesystem\Filesystem();
+        $this->client = new \Gitter\Client();
     }
 
     public function init()
     {
         if ($this->fs->exists($this->path)) {
-            return;
+            return $this;
         }
 
-        $client = new \Gitter\Client();
-        $this->repository = $client->createRepository($this->path);
+        $this->repository = $this->client->createRepository($this->path);
 
-        $this->recursiveCommit(1);
+        $this->recursiveCommit("randomFile", 10);
+
+        return $this;
     }
 
-    protected function recursiveCommit($count = null)
+    public function commitWithTag($message = null, $tag)
     {
-        if ($count === null)
-        {
-            $count = $this->count;
+        if ($this->repository === null) {
+            $this->repository = $this->client->getRepository($this->path);
         }
 
-        if ($count > 10) {
+        $this->recursiveCommit($message, 1, $tag);
+
+        return $this;
+    }
+
+    public function removeTag($tag)
+    {
+        $command = "tag -d ".$tag;
+
+        $client = $this->repository->getClient();
+        $client->run($this->repository, $command);
+    }
+
+    protected function recursiveCommit($message = null, $count = null, $tag = null)
+    {
+        if ($count == 0) {
             return;
         }
 
-        $this->fs->dumpFile($this->path.'/'.rand(0, 500).'.txt', 'test');
+        $this->createFile();
 
         $this->repository
             ->addAll()
-            ->commit("randomFile");
+            ->commit($message);
 
+        if ($tag === null) {
+            $tag = $this->createTag($count);
+        }
+
+        $this->repository->createTag($tag);
+
+        $count--;
+
+        $this->recursiveCommit($message, $count);
+    }
+
+    protected function createFile()
+    {
+        do {
+            $path = $this->path.'/'.rand(0, 500).'.txt';
+        } while (file_exists($path));
+
+        $this->fs->dumpFile($path, 'test');
+    }
+
+    protected function createTag($count)
+    {
         if ($count < 5) {
             $tag = $count.".".$count.".".$count;
         } else {
@@ -54,13 +98,7 @@ class InitRepo
             $tag = "v". $tag;
         }
 
-        $this->repository->createTag($tag);
-
-        $count++;
-
-        $this->count = $count;
-
-        $this->recursiveCommit();
+        return  $tag;
     }
 }
 
