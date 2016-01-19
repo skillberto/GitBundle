@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<phpunit colors="true" bootstrap="vendor/autoload.php">
+<phpunit
+        colors="true"
+        bootstrap="./Tests/bootstrap.php"
+        >
     <php>
-        <server name="KERNEL_DIR" value="./Tests/app" />
+        <server name="TEST_REPO" value="./Tests/Resources/testrepo" />
     </php>
     <testsuites>
         <testsuite name="GitBundle for the Symfony Framework">

@@ -2,76 +2,16 @@
 
 namespace Skillberto\GitBundle\Tests\Service;
 
-use Gitter\Client;
-use Gitter\Repository;
 use Skillberto\GitBundle\Service\GitService;
-use Symfony\Component\Filesystem\Filesystem;
+use Skillberto\GitBundle\Util\TagFormatter;
 
 class GitServiceTest extends \PHPUnit_Framework_TestCase
 {
-    protected
-        $path,
-        $repository,
-        $count,
-        $fs;
-
-    protected function setUp()
-    {
-        $this->path = __DIR__."/testrepo";
-
-        $this->fs = new Filesystem();
-
-        if ($this->fs->exists($this->path)) {
-            return;
-        }
-
-        $client = new Client();
-        $this->repository = $client->createRepository($this->path);
-
-        $this->recursiveCommit(1);
-    }
-
-    protected function recursiveCommit($count = null)
-    {
-        if ($count === null)
-        {
-            $count = $this->count;
-        }
-
-        if ($count > 10) {
-            return;
-        }
-
-        $this->fs->dumpFile($this->path.'/'.rand(0, 500).'.txt', 'test');
-
-        $this->repository
-            ->addAll()
-            ->commit("randomFile");
-
-        if ($count < 5) {
-            $tag = $count.".".$count.".".$count;
-        } else {
-            $tag = $count.".".$count;
-        }
-
-        if ($count % 2) {
-            $tag = "v". $tag;
-        }
-
-        $this->repository->createTag($tag);
-
-        $count++;
-
-        $this->count = $count;
-
-        $this->recursiveCommit();
-    }
-
     public function testGetValidVersion()
     {
         $service = $this->getService(true);
 
-        $this->assertEquals(10.10, $service->getVersion());
+        $this->assertEquals("10.10", $service->getVersion());
     }
 
     /**
@@ -100,13 +40,7 @@ class GitServiceTest extends \PHPUnit_Framework_TestCase
 
     protected function getFormatter()
     {
-        $mock = $this->getMockBuilder('Skillberto\GitBundle\Util\FormatterInterface', array('format'))->getMock();
-        $mock
-            ->expects($this->any())
-            ->method('format')
-            ->will($this->returnArgument(0));
-
-        return $mock;
+        return new TagFormatter();
     }
 
     protected function getService($valid = true)
@@ -114,6 +48,6 @@ class GitServiceTest extends \PHPUnit_Framework_TestCase
         $validator = $this->getValidator($valid);
         $formatter = $this->getFormatter();
 
-        return new GitService($this->path, $validator, $formatter);
+        return new GitService($_SERVER['TEST_REPO'], $validator, $formatter);
     }
 } 
