@@ -1,45 +1,27 @@
 <?php
 
-require_once __DIR__.'/../vendor/autoload.php';
+namespace Skillberto\GitBundle\Tests;
 
-class InitRepo
+class GitTestRepo
 {
     protected
         $path = null,
         $repository = null,
-        $client = null,
+        $client,
         $fs = null;
 
-    public function __construct($path = null)
+    public function __construct()
     {
-        if ($path === null) {
-            $this->path = $_SERVER['TEST_REPO'];
-        } else {
-            $this->path = $path;
-        }
+        $this->path   = sys_get_temp_dir().'/testrepo';
+        $this->fs     = new \Symfony\Component\Filesystem\Filesystem();
 
-        $this->fs = new \Symfony\Component\Filesystem\Filesystem();
+        $this->fs->remove($this->path);
+
         $this->client = new \Gitter\Client();
-
-
-        if ($this->fs->exists($this->path)) {
-            $this->repository = $this->client->getRepository($this->path);
-        } else {
-            $this->init();
-        }
-    }
-
-    public function init()
-    {
-        if ($this->fs->exists($this->path)) {
-            return $this;
-        }
 
         $this->repository = $this->client->createRepository($this->path);
 
         $this->recursiveCommit("randomFile", 10);
-
-        return $this;
     }
 
     public function commitWithTag($message = null, $tag)
@@ -53,8 +35,12 @@ class InitRepo
     {
         $command = "tag -d ".$tag;
 
-        $client = $this->repository->getClient();
-        $client->run($this->repository, $command);
+        $this->client->run($this->repository, $command);
+    }
+
+    public function getPath()
+    {
+        return $this->path;
     }
 
     protected function recursiveCommit($message = null, $count = null, $tag = null)
@@ -104,6 +90,3 @@ class InitRepo
         return  $tag;
     }
 }
-
-$c = new InitRepo();
-$c->init();

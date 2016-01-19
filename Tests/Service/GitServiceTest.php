@@ -3,18 +3,25 @@
 namespace Skillberto\GitBundle\Tests\Service;
 
 use Skillberto\GitBundle\Service\GitService;
+use Skillberto\GitBundle\Tests\GitTestRepo;
 use Skillberto\GitBundle\Util\TagFormatter;
 use Skillberto\GitBundle\Validation\TagValidator;
 
 class GitServiceTest extends \PHPUnit_Framework_TestCase
 {
-    protected
-        $repo = null;
+    protected static
+        $git = null,
+        $remove = false;
+
+    public static function setUpBeforeClass()
+    {
+        self::$git = new GitTestRepo();
+    }
 
     protected function tearDown()
     {
-        if ($this->repo !== null) {
-            $this->repo->removeTag("v1.3.5.2");
+        if (self::$remove === true) {
+            self::$git->removeTag("v1.3.5.2");
         }
     }
 
@@ -30,8 +37,8 @@ class GitServiceTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetInvalidVersion()
     {
-        $this->repo = new \InitRepo();
-        $this->repo->commitWithTag("invalidRepo", "v1.3.5.2");
+        self::$git->commitWithTag("invalidRepo", "v1.3.5.2");
+        self::$remove = true;
 
         $service = $this->getService();
 
@@ -53,6 +60,6 @@ class GitServiceTest extends \PHPUnit_Framework_TestCase
         $validator = $this->getValidator();
         $formatter = $this->getFormatter();
 
-        return new GitService($_SERVER['TEST_REPO'], $validator, $formatter);
+        return new GitService(self::$git->getPath(), $validator, $formatter);
     }
 } 

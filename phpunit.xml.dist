@@ -2,11 +2,8 @@
 
 <phpunit
         colors="true"
-        bootstrap="./Tests/bootstrap.php"
-        >
-    <php>
-        <server name="TEST_REPO" value="./Tests/Resources/testrepo" />
-    </php>
+        bootstrap="./vendor/autoload.php" >
+
     <testsuites>
         <testsuite name="GitBundle for the Symfony Framework">
             <directory>./Tests</directory>
