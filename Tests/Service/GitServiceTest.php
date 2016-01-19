@@ -67,11 +67,6 @@ class GitServiceTest extends \PHPUnit_Framework_TestCase
         $this->recursiveCommit();
     }
 
-    /*protected function tearDown()
-    {
-        $this->fs->remove($this->path);
-    }*/
-
     public function testGetValidVersion()
     {
         $service = $this->getService(true);
