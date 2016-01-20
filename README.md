@@ -4,13 +4,28 @@
 
 This Bundle has been created for Symfony Framework.
 
-Created a Simple Twig extension to return last Git Tag.
+It's a simple bundle to get Git version from a local git repository.
 
-Usage:
+Documentation
+-------------
 
-`{{git_version()}}`
+The source of the documentation is stored in the `Resources/doc/` folder
+in this bundle:
 
-MIT License
+[Read the Documentation](https://github.com/skillberto/GitBundle/tree/master/Resources/doc/index.rst)
+
+Installation
+------------
+
+All the installation instructions are located in the documentation at [Installation section](https://github.com/skillberto/GitBundle/tree/master/Resources/doc/index.rst#installation)
+
+License
+-------
+
+This bundle is under the MIT license. See the complete license in the bundle:
+
+    Resources/meta/LICENSE
+
 
 
 
