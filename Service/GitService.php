@@ -28,14 +28,14 @@ class GitService implements GitServiceInterface
         $tag = $this->getLastTag();
 
         if (!$this->validator->isValid($tag)) {
-            throw new InvalidTagException(sprintf("Can't find correct git tag for current version, found: ", $tag));
+            throw new InvalidTagException(sprintf("Can't find correct git tag for current version, found: %s", $tag));
         }
 
         return $this->format($tag);
     }
 
     /**
-     * Get tags.
+     * Get last tag.
      *
      * @return array
      */
