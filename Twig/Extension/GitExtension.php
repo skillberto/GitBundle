@@ -6,13 +6,12 @@ use Skillberto\GitBundle\Service\GitServiceInterface;
 
 class GitExtension extends \Twig_Extension
 {
-    protected
-        $gitServiceInterface;
+    protected $gitServiceInterface;
 
     public function getFunctions()
     {
         return array(
-            new \Twig_Function("git_version", array($this->gitServiceInterface, 'getVersion'))
+            new \Twig_Function('git_version', array($this->gitServiceInterface, 'getVersion')),
         );
     }
 

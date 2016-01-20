@@ -5,7 +5,7 @@ namespace Skillberto\GitBundle\Util;
 class TagFormatter implements FormatterInterface
 {
     /**
-     * {inheritdoc}
+     * {inheritdoc}.
      */
     public function format($data)
     {

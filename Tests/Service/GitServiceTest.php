@@ -9,8 +9,7 @@ use Skillberto\GitBundle\Validation\TagValidator;
 
 class GitServiceTest extends \PHPUnit_Framework_TestCase
 {
-    protected static
-        $git = null,
+    protected static $git = null,
         $remove = false;
 
     public static function setUpBeforeClass()
@@ -21,7 +20,7 @@ class GitServiceTest extends \PHPUnit_Framework_TestCase
     protected function tearDown()
     {
         if (self::$remove === true) {
-            self::$git->removeTag("v1.3.5.2");
+            self::$git->removeTag('v1.3.5.2');
         }
     }
 
@@ -29,7 +28,7 @@ class GitServiceTest extends \PHPUnit_Framework_TestCase
     {
         $service = $this->getService(true);
 
-        $this->assertEquals("1.1.1", $service->getVersion());
+        $this->assertEquals('1.1.1', $service->getVersion());
     }
 
     /**
@@ -37,7 +36,7 @@ class GitServiceTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetInvalidVersion()
     {
-        self::$git->commitWithTag("invalidRepo", "v1.3.5.2");
+        self::$git->commitWithTag('invalidRepo', 'v1.3.5.2');
         self::$remove = true;
 
         $service = $this->getService();
@@ -62,4 +61,4 @@ class GitServiceTest extends \PHPUnit_Framework_TestCase
 
         return new GitService(self::$git->getPath(), $validator, $formatter);
     }
-} 
+}

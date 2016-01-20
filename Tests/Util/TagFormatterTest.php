@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Skillberto\GitBundle\Tests\Util;
 
 use Skillberto\GitBundle\Util\TagFormatter;

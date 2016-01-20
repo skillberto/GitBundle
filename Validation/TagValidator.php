@@ -8,22 +8,22 @@ use Symfony\Component\Validator\Constraints as Assert;
 class TagValidator implements ValidatorInterface
 {
     /**
-     * {inheritdoc}
+     * {inheritdoc}.
      */
     public function isValid($data)
     {
         $validator = Validation::createValidator();
 
         $constraint = new Assert\Collection(array(
-            "tag" => array(
+            'tag' => array(
                 new Assert\NotNull(),
                 new Assert\NotBlank(),
                 new Assert\Type(array('type' => 'string')),
-                new Assert\Regex(array('pattern' => '/(^v?)\d+\.\d+(\.\d+)?$/'))
-            )
+                new Assert\Regex(array('pattern' => '/(^v?)\d+\.\d+(\.\d+)?$/')),
+            ),
         ));
 
-        if (count($validator->validate(array("tag" => $data), $constraint)) > 0) {
+        if (count($validator->validate(array('tag' => $data), $constraint)) > 0) {
             return false;
         }
 

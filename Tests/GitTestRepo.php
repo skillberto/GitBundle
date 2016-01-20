@@ -4,16 +4,15 @@ namespace Skillberto\GitBundle\Tests;
 
 class GitTestRepo
 {
-    protected
-        $path = null,
+    protected $path = null,
         $repository = null,
         $client,
         $fs = null;
 
     public function __construct()
     {
-        $this->path   = sys_get_temp_dir().'/testrepo';
-        $this->fs     = new \Symfony\Component\Filesystem\Filesystem();
+        $this->path = sys_get_temp_dir().'/testrepo';
+        $this->fs = new \Symfony\Component\Filesystem\Filesystem();
 
         $this->fs->remove($this->path);
 
@@ -21,7 +20,7 @@ class GitTestRepo
 
         $this->repository = $this->client->createRepository($this->path);
 
-        $this->recursiveCommit("randomFile", 10);
+        $this->recursiveCommit('randomFile', 10);
     }
 
     public function commitWithTag($message = null, $tag)
@@ -33,7 +32,7 @@ class GitTestRepo
 
     public function removeTag($tag)
     {
-        $command = "tag -d ".$tag;
+        $command = 'tag -d '.$tag;
 
         $this->client->run($this->repository, $command);
     }
@@ -61,7 +60,7 @@ class GitTestRepo
 
         $this->repository->createTag($tag);
 
-        $count--;
+        --$count;
 
         $this->recursiveCommit($message, $count);
     }
@@ -78,13 +77,13 @@ class GitTestRepo
     protected function createTag($count)
     {
         if ($count < 5) {
-            $tag = $count.".".$count.".".$count;
+            $tag = $count.'.'.$count.'.'.$count;
         } else {
-            $tag = $count.".".$count;
+            $tag = $count.'.'.$count;
         }
 
         if ($count % 2 == 0) {
-            $tag = "v". $tag;
+            $tag = 'v'.$tag;
         }
 
         return  $tag;

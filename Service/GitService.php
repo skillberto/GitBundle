@@ -9,8 +9,7 @@ use Skillberto\GitBundle\Validation\ValidatorInterface;
 
 class GitService implements GitServiceInterface
 {
-    protected
-        $path,
+    protected $path,
         $validator,
         $formatter;
 
@@ -22,13 +21,13 @@ class GitService implements GitServiceInterface
     }
 
     /**
-     * {inheritdoc}
+     * {inheritdoc}.
      */
     public function getVersion()
     {
         $tag = $this->getLastTag();
 
-        if (! $this->validator->isValid($tag)) {
+        if (!$this->validator->isValid($tag)) {
             throw new InvalidTagException(sprintf("Can't find correct git tag for current version, found: ", $tag));
         }
 
@@ -36,7 +35,7 @@ class GitService implements GitServiceInterface
     }
 
     /**
-     * Get tags
+     * Get tags.
      *
      * @return array
      */
@@ -50,13 +49,14 @@ class GitService implements GitServiceInterface
     }
 
     /**
-     * Format the tag
+     * Format the tag.
      *
-     * @param  string $data
+     * @param string $data
+     *
      * @return string
      */
     protected function format($data)
     {
         return $this->formatter->format($data);
     }
-} 
+}

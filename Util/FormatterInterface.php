@@ -5,7 +5,8 @@ namespace Skillberto\GitBundle\Util;
 interface FormatterInterface
 {
     /**
-     * @param  string $data
+     * @param string $data
+     *
      * @return string
      */
     public function format($data);

@@ -10,7 +10,7 @@ class SkillbertoGitExtensionTest extends AbstractExtensionTestCase
     protected function getContainerExtensions()
     {
         return array(
-            new SkillbertoGitExtension()
+            new SkillbertoGitExtension(),
         );
     }
 
